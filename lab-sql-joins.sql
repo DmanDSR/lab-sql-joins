@@ -34,6 +34,8 @@ FROM payment;
 
 SELECT st.store_id AS 'Store ID', ROUND(SUM(p.amount)) AS "Total Revenue"
 FROM store AS st 
+JOIN address as a
+ON st.store_id = a.address_id
 JOIN Staff as sta
 ON st.store_id = sta.staff_id
 JOIN payment AS p
