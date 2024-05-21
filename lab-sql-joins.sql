@@ -21,7 +21,7 @@ FROM country;
 SELECT st.store_id AS 'Store ID', ci.city, co.country
 FROM store AS st
 JOIN address as a
-ON st.store_id = a.address_id
+ON a.address_id = st.address_id
 JOIN city AS ci
 ON a.address_id = ci.city_id
 JOIN country AS co
@@ -37,9 +37,9 @@ FROM store AS st
 JOIN address as a
 ON st.store_id = a.address_id
 JOIN Staff as sta
-ON st.store_id = sta.staff_id
+ON sta.store_id = st.store_id
 JOIN payment AS p
-ON sta.staff_id = p.payment_id
+ON p.staff_id = sta.staff_id 
 GROUP BY st.store_id;
 
 -- Determine the average running time of films for each category.
@@ -49,15 +49,12 @@ from film as f
 JOIN film_category as fc
 ON f.film_id = fc.film_id
 JOIN category as c
-ON fc.film_id = c.category_id
+ON fc.category_id = c.category_id
 GROUP BY c.name;
 
 -- Bonus:
 
 -- Identify the film categories with the longest average running time.
-
-SELECT *
-FROM film;
 
 SELECT c.name, ROUND(AVG(f.length), 2 ) AS 'average running time'
 from film as f
